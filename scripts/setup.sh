@@ -1,8 +1,8 @@
 #!/bin/bash -e
 
-CLUSTER_NAME="${CLUSTER_NAME:-terraform-eks-demo}"
+CLUSTER_NAME="${CLUSTER_NAME:-terraform-aks-demo}"
 CLUSTER_SIZE="${CLUSTER_SIZE:-1}"
-CLUSTER_REGION="${CLUSTER_REGION:-us-west-2}"
+CLUSTER_REGION="${CLUSTER_REGION:-West Europe}"
 CLUSTER_INSTANCE_TYPE="${CLUSTER_INSTANCE_TYPE:-m4.large}"
 CLUSTER_KEY_NAME="${CLUSTER_KEY_NAME:-}"
 
@@ -13,7 +13,7 @@ cd terraform/
 
 terraform init
 
-# try 3 times in case we are stuck waiting for EKS cluster to come up
+# try 3 times in case we are stuck waiting for AKS cluster to come up
 set +e
 N=0
 SUCCESS="false"
