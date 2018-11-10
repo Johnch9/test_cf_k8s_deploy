@@ -19,14 +19,14 @@ cd terraform/
 echo ${CLIENT_ID}
 echo ${TENANT_ID}
 
-./terraform init
+terraform init
 
 # try 3 times in case we are stuck waiting for AKS cluster to come up
 set +e
 N=0
 SUCCESS="false"
 until [ $N -ge 3 ]; do
-  ./terraform apply -auto-approve \
+  terraform apply -auto-approve \
     -var "resource_group_name=azTestRG" \
     -var "client_id=${CLIENT_ID}" \
     -var "client_secret=${CLIENT_SECRET}" \
