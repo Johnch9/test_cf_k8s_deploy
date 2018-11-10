@@ -16,6 +16,9 @@ cd $DIR/../
 
 cd terraform/
 
+echo ${CLIENT_ID}
+echo ${TENANT_ID}
+
 terraform init
 
 # try 3 times in case we are stuck waiting for AKS cluster to come up
