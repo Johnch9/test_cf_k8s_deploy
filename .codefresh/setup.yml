@@ -18,7 +18,7 @@ steps:
 
   setup_aks_cluster:
     title: Setup AKS cluster using Terraform
-    image: hashicorp/terraform:0.11.7
+    image: hashicorp/terraform:latest
     commands:
       - apk add --update make bash
       - set +e; make scripts/setup; cf_export RC=$?
