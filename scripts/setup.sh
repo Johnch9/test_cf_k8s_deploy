@@ -30,8 +30,8 @@ until [ $N -ge 3 ]; do
     -var "resource_group_name=azTestRG" \
     -var "client_id=${CLIENT_ID}" \
     -var "client_secret=${CLIENT_SECRET}" \
-    -var "subscription_id=${CLIENT_ID}" \
-    -var "tenant_id=${CLIENT_SECRET}" \
+    -var "subscription_id=${SUBSCRIPTION_ID}" \
+    -var "tenant_id=${TENANT_ID}" \
     -var "cluster-name=${CLUSTER_NAME}" \
     -var "cluster-size=${CLUSTER_SIZE}" \
     -var "cluster-region=${CLUSTER_REGION}" \
