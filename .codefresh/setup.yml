@@ -14,20 +14,20 @@ steps:
     image: codefresh/cli:0.8.54
     commands:
       - apk add --update make bash
-      - make scripts/codefresh-load-tfstate || echo "Skipping."
+      - make codefresh-load-tfstate || echo "Skipping."
 
   setup_aks_cluster:
     title: Setup AKS cluster using Terraform
     image: hashicorp/terraform:latest
     commands:
       - apk add --update make bash
-      - set +e; make scripts/setup; cf_export RC=$?
+      - set +e; make setup; cf_export RC=$?
 
   save_tfstate:
     title: Save Terraform statefile to Codefresh context
     image: codefresh/cli:0.8.54
     commands:
       - apk add --update make bash
-      - make scripts/codefresh-save-tfstate
+      - make codefresh-save-tfstate
       - exit ${{RC}}
 
