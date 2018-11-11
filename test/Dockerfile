@@ -2,7 +2,7 @@ FROM hashicorp/terraform:latest
 
 RUN apk add --update git bash
 
-WORKDIR "/app"
+WORKDIR /app
 
 COPY ./terraform ./terraform
 
