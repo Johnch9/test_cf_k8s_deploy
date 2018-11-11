@@ -1,0 +1,11 @@
+apiVersion: v1
+kind: context
+metadata:
+  system: false
+  name: aks-install
+owner: account
+type: config
+spec:
+  type: config
+  data:
+    TFSTATE_BASE64: ""
