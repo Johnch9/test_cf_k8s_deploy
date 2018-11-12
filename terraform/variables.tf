@@ -23,11 +23,11 @@ variable "dns_prefix" {
 }
 
 variable cluster_name {
-    default = "azcaptfCluster"
+    default = "azTestDevCluster"
 }
 
 variable resource_group_name {
-    default = "azcaptfRG"
+    default = "azTestDevRG"
 }
 
 variable location {
