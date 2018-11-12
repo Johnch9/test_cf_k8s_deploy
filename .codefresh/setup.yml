@@ -14,7 +14,7 @@ steps:
     image: codefresh/cli:0.8.54
     commands:
       - apk add --update make bash
-      - chmod +x
+      - chmod +x ./scripts/codefresh-load-tfstate.sh
       - make codefresh-load-tfstate || echo "Skipping."
 
   setup_aks_cluster:
@@ -22,7 +22,7 @@ steps:
     image: hashicorp/terraform:latest
     commands:
       - apk add --update make bash
-      - chmod +x
+      - chmod +x ./scripts/setup.sh
       - set +e; make setup; cf_export RC=$?
 
   save_tfstate:
@@ -30,7 +30,7 @@ steps:
     image: codefresh/cli:0.8.54
     commands:
       - apk add --update make bash
-      - chmod +x
+      - chmod +x ./scripts/codefresh-save-tfstate.sh
       - make codefresh-save-tfstate
       - exit ${{RC}}
 
