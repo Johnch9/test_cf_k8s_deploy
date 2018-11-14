@@ -42,4 +42,3 @@ fi
 terraform output kubeca > ../kubernetes/kubeca.txt
 terraform output kubehost > ../kubernetes/kubehost.txt
 terraform output kubeconfig > ../kubernetes/kubeconfig.yaml
-terraform output config-map-aws-auth > ../kubernetes/config-map-aws-auth.yaml

@@ -18,6 +18,10 @@ codefresh-load-tfstate:
 codefresh-remove-tfstate:
 	@./scripts/codefresh-remove-tfstate.sh
 
+.PHONY: codefresh-add-cluster
+codefresh-remove-tfstate:
+	@./scripts/codefresh-add-cluster.sh
+
 .PHONY: clean
 clean:
 	@git status --ignored --short | grep '^!! ' | sed 's/!! //' | xargs rm -rf
