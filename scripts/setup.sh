@@ -39,6 +39,6 @@ if [[ "$SUCCESS" != "true" ]]; then
     exit 1
 fi
 
-terraform output kubeca > ../kubernetes/kubeca.txt
-terraform output kubehost > ../kubernetes/kubehost.txt
-terraform output kubeconfig > ../kubernetes/kubeconfig.yaml
+terraform output cluster_ca_certificate > ../kubernetes/kubeca.txt
+terraform output host > ../kubernetes/kubehost.txt
+terraform output kube_config > ../kubernetes/kubeconfig.yaml
