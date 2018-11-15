@@ -58,4 +58,5 @@ steps:
       - apk add --update make bash jq
       - export K8S_CA="$(cat kubernetes/kubeca.txt)"
       - export K8S_HOST="$(cat kubernetes/kubehost.txt)"
+      - chmod +x ./scripts/codefresh-add-cluster.sh
       - make codefresh-add-cluster
