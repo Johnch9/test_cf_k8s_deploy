@@ -52,7 +52,7 @@ curl -s --fail \
         \"clientCa\": \"$K8S_CA\",
         \"serviceAccountToken\": \"$K8S_TOKEN\",
         \"provider\": \"local\",
-        \"providerAgent\": \"aks\"
+        \"providerAgent\": \"azure\"
     }" \
     "$CF_API_HOST/api/clusters/local/cluster"
 echo
