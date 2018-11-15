@@ -1,4 +1,4 @@
-FROM lachlanevenson/k8s-kubectl:latest
+FROM hashicorp/terraform:latest
 
 RUN apk add --update git bash
 
