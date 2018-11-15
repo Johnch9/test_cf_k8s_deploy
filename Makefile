@@ -19,7 +19,7 @@ codefresh-remove-tfstate:
 	@./scripts/codefresh-remove-tfstate.sh
 
 .PHONY: codefresh-add-cluster
-codefresh-remove-tfstate:
+codefresh-add-cluster:
 	@./scripts/codefresh-add-cluster.sh
 
 .PHONY: clean
