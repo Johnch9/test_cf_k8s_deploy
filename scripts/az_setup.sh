@@ -22,7 +22,7 @@ set +e
 N=0
 SUCCESS="false"
 until [ $N -ge 3 ]; do
-  terraform aks create \
+  az aks create \
     --resource-group "${RESOURCE_GROUP}" \
     --name "${CLUSTER_NAME}" \
     --node-count "${NODE_COUNT}" 
@@ -38,7 +38,9 @@ if [[ "$SUCCESS" != "true" ]]; then
     exit 1
 fi
 
-az aks get-credentials --resource-group "${RESOURCE_GROUP}" --name "${CLUSTER_NAME}" > ../kubernetes/kubeconfig.yaml
+az aks get-credentials --resource-group "${RESOURCE_GROUP}" --name "${CLUSTER_NAME}" > kubernetes/kubeconfig.yaml
+
+export KUBECONFIG=/app/kubernetes/kubeconfig.yaml
 
 # kubectl config view --raw -o json | jq -r '.clusters[0].cluster."certificate-authority-data"' | tr -d '"' | base64 --decode > ../kubernetes/kubeca.txt
 # kubectl config view --raw -o json | jq -r '.clusters[0].cluster."server"' > ../kubernetes/kubehost.txt
