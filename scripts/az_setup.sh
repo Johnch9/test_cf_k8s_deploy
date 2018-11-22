@@ -25,7 +25,7 @@ until [ $N -ge 3 ]; do
   az aks create \
     --resource-group "${RESOURCE_GROUP}" \
     --name "${CLUSTER_NAME}" \
-    --node-count "${NODE_COUNT}" 
+    --node-count ${NODE_COUNT}
   if [[ "$?" == "0" ]]; then
     SUCCESS="true"
     break
