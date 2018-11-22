@@ -5,9 +5,8 @@ steps:
     title: Check environment for required variables
     image: bash:4.4.23
     commands:
-      - echo 'Checking for CLUSTER_NAME, AZ_CLIENT_ID, and AZ_CLIENT_SECRET...'
-      - bash -c '[[ -z $CLUSTER_NAME || -z $AZ_CLIENT_ID || -z $AZ_CLIENT_SECRET ]] && exit 1 || true'
-      - cf_export K8S_NAME="azTestDevCluster"
+      - echo 'Checking for K8S_NAME, AZ_CLIENT_ID, and AZ_CLIENT_SECRET...'
+      - bash -c '[[ -z $K8S_NAME || -z $AZ_CLIENT_ID || -z $AZ_CLIENT_SECRET ]] && exit 1 || true'
 
   az_setup_aks_cluster:
     title: Setup AKS cluster using AZ command line
@@ -68,3 +67,31 @@ steps:
       - export K8S_HOST="$(cat kubernetes/kubehost.txt)"
       - chmod +x ./scripts/codefresh-add-cluster.sh
       - make codefresh-add-cluster
+
+  load_tfstate_helm:
+    title: Attempt to load Terraform statefile from Codefresh context
+    image: codefresh/cli:0.8.54
+    commands:
+      - apk add --update make bash
+      - chmod +x ./scripts_helm/codefresh-load-tfstate.sh
+      - make codefresh-load-tfstate-helm || echo "Skipping."
+
+  install_helm_chart:
+    title: Setup AKS cluster using Terraform
+    image: hashicorp/terraform:latest
+    commands:
+      - apk add --update make bash
+      - curl -LO https://storage.googleapis.com/kubernetes-release/release/v1.10.10/bin/linux/amd64/kubectl
+      - chmod +x ./kubectl
+      - mv ./kubectl /usr/local/bin/kubectl
+      - chmod +x ./scripts_helm/setup.sh
+      - set +e; make setup; cf_export RC=$?
+
+  save_tfstate_helm:
+    title: Save Terraform statefile to Codefresh context
+    image: codefresh/cli:0.8.54
+    commands:
+      - apk add --update make bash
+      - chmod +x ./scripts_helm/codefresh-save-tfstate.sh
+      - make codefresh-save-tfstate-helm
+      - exit ${{RC}}
