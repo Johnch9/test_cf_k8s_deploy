@@ -26,7 +26,7 @@ until [ $N -ge 3 ]; do
     --resource-group "${RESOURCE_GROUP}" \
     --name "${CLUSTER_NAME}" \
     --node-count ${NODE_COUNT} \
-    --service-principal "${CLIENT_ID}" \ 
+    --service-principal "${CLIENT_ID}" \
     --client-secret "${CLIENT_SECRET}"
   if [[ "$?" == "0" ]]; then
     SUCCESS="true"
