@@ -27,7 +27,8 @@ until [ $N -ge 3 ]; do
     --name "${CLUSTER_NAME}" \
     --node-count ${NODE_COUNT} \
     --service-principal "${CLIENT_ID}" \
-    --client-secret "${CLIENT_SECRET}"
+    --client-secret "${CLIENT_SECRET}" \
+    --generate-ssh-keys
   if [[ "$?" == "0" ]]; then
     SUCCESS="true"
     break
