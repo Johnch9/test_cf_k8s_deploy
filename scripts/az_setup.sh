@@ -45,9 +45,9 @@ if [[ "$SUCCESS" != "true" ]]; then
     exit 1
 fi
 
-az aks get-credentials --resource-group "${RESOURCE_GROUP}" --name "${CLUSTER_NAME}" > kubernetes/kubeconfig.yaml
-
 export KUBECONFIG=kubernetes/kubeconfig.yaml
+
+az aks get-credentials --resource-group "${RESOURCE_GROUP}" --name "${CLUSTER_NAME}" 
 
 # kubectl config view --raw -o json | jq -r '.clusters[0].cluster."certificate-authority-data"' | tr -d '"' | base64 --decode > ../kubernetes/kubeca.txt
 # kubectl config view --raw -o json | jq -r '.clusters[0].cluster."server"' > ../kubernetes/kubehost.txt
@@ -55,3 +55,6 @@ kubectl config view --raw -o json | jq -r '.clusters[0].cluster."certificate-aut
 kubectl config view --raw -o json | jq -r '.clusters[0].cluster."server"' > kubernetes/kubehost.txt
 
 ls kubernetes
+cat kubernetes/kubeconfig.yaml
+cat kubernetes/kubeca.txt
+cat kubernetes/kubehost.txt
