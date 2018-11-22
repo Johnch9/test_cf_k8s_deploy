@@ -4,12 +4,24 @@
 
 variable "client_id" {
 }
-variable "client_secret" {}
+variable "client_secret" {
+}
 
 variable "tenant_id" {
 }
 variable "subscription_id" {
 }
+
+variable "ad_k8s_sp_client_id" {
+}
+
+variable "ad_k8s_sp_server_id" {
+}
+
+variable "ad_k8s_sp_server_secret" {
+}
+
+
 variable "agent_count" {
     default = 1
 }
@@ -23,13 +35,14 @@ variable "dns_prefix" {
 }
 
 variable cluster_name {
-    default = "azTestDevCluster"
+    default = "azTestDevCluster1"
 }
 
 variable resource_group_name {
-    default = "azTestDevRG"
+    default = "azTestDevRG1"
 }
 
 variable location {
     default = "West Europe"
 }
+

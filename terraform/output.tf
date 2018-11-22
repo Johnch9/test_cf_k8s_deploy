@@ -25,3 +25,11 @@ output "kube_config" {
 output "host" {
     value = "${azurerm_kubernetes_cluster.k8s.kube_config.0.host}"
 }
+
+# output "ad_k8s_sp_id" {
+#     value = "${azurerm_azuread_service_principal.k8s_ad_app.id}"
+# }
+
+# output "ad_k8s_client_id" {
+#     value = "${azurerm_azuread_application.k8s_ad_app.application_id}"
+# }

@@ -9,30 +9,38 @@ steps:
       - bash -c '[[ -z $CLUSTER_NAME || -z $AZ_CLIENT_ID || -z $AZ_CLIENT_SECRET ]] && exit 1 || true'
       - cf_export K8S_NAME="azTestDevCluster"
 
-  load_tfstate:
-    title: Attempt to load Terraform statefile from Codefresh context
-    image: codefresh/cli:0.8.54
+  az_setup_aks_cluster:
+    title: Setup AKS cluster using AZ command line
+    image: microsoft/azure-cli:latest
     commands:
-      - apk add --update make bash
-      - chmod +x ./scripts/codefresh-load-tfstate.sh
-      - make codefresh-load-tfstate || echo "Skipping."
+      - apk add --update make bash git && wget -q https://storage.googleapis.com/kubernetes-release/release/${KUBE_LATEST_VERSION}/bin/linux/amd64/kubectl -O /usr/local/bin/kubectl && chmod +x /usr/local/bin/kubectl
+      - chmod +x ./scripts/az_setup.sh
+      - set +e; make az_setup; cf_export RC=$?
+    
+  # load_tfstate:
+  #   title: Attempt to load Terraform statefile from Codefresh context
+  #   image: codefresh/cli:0.8.54
+  #   commands:
+  #     - apk add --update make bash
+  #     - chmod +x ./scripts/codefresh-load-tfstate.sh
+  #     - make codefresh-load-tfstate || echo "Skipping."
 
-  setup_aks_cluster:
-    title: Setup AKS cluster using Terraform
-    image: hashicorp/terraform:latest
-    commands:
-      - apk add --update make bash
-      - chmod +x ./scripts/setup.sh
-      - set +e; make setup; cf_export RC=$?
+  # setup_aks_cluster:
+  #   title: Setup AKS cluster using Terraform
+  #   image: hashicorp/terraform:latest
+  #   commands:
+  #     - apk add --update make bash
+  #     - chmod +x ./scripts/setup.sh
+  #     - set +e; make setup; cf_export RC=$?
 
-  save_tfstate:
-    title: Save Terraform statefile to Codefresh context
-    image: codefresh/cli:0.8.54
-    commands:
-      - apk add --update make bash
-      - chmod +x ./scripts/codefresh-save-tfstate.sh
-      - make codefresh-save-tfstate
-      - exit ${{RC}}
+  # save_tfstate:
+  #   title: Save Terraform statefile to Codefresh context
+  #   image: codefresh/cli:0.8.54
+  #   commands:
+  #     - apk add --update make bash
+  #     - chmod +x ./scripts/codefresh-save-tfstate.sh
+  #     - make codefresh-save-tfstate
+  #     - exit ${{RC}}
 
   create_kubernetes_resources:
     title: Create additional Kubernetes resources
