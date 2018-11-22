@@ -37,6 +37,8 @@ az login --service-principal -u "${CLIENT_ID}" -p "${CLIENT_SECRET}" --tenant "$
 # done
 # set -e
 
+SUCCESS="true"
+
 ls .
 
 if [[ "$SUCCESS" != "true" ]]; then
@@ -45,9 +47,11 @@ fi
 
 az aks get-credentials --resource-group "${RESOURCE_GROUP}" --name "${CLUSTER_NAME}" > kubernetes/kubeconfig.yaml
 
-export KUBECONFIG=/app/kubernetes/kubeconfig.yaml
+export KUBECONFIG=kubernetes/kubeconfig.yaml
 
 # kubectl config view --raw -o json | jq -r '.clusters[0].cluster."certificate-authority-data"' | tr -d '"' | base64 --decode > ../kubernetes/kubeca.txt
 # kubectl config view --raw -o json | jq -r '.clusters[0].cluster."server"' > ../kubernetes/kubehost.txt
 kubectl config view --raw -o json | jq -r '.clusters[0].cluster."certificate-authority-data"' | tr -d '"' | base64 -d > kubernetes/kubeca.txt
 kubectl config view --raw -o json | jq -r '.clusters[0].cluster."server"' > kubernetes/kubehost.txt
+
+ls kubernetes
