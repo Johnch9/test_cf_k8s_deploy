@@ -2,6 +2,10 @@
 setup:
 	@./scripts/setup.sh
 
+.PHONY: az_setup
+az_setup:
+	@./scripts/az_setup.sh
+
 .PHONY: teardown
 teardown:
 	@./scripts/teardown.sh
