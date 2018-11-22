@@ -36,6 +36,11 @@ fi
 
 echo "Adding new cluster \"$K8S_NAME\"..."
 
+echo $K8S_NAME
+echo $K8S_HOST
+echo $K8S_CA
+echo $K8S_TOKEN
+
 curl -s --fail \
     -H "x-access-token: $CF_API_KEY" \
     -H "content-type: application/json;charset=UTF-8" \
