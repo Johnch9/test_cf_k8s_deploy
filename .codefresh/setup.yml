@@ -85,6 +85,7 @@ steps:
 #      - chmod +x ./kubectl
 #      - mv ./kubectl /usr/local/bin/kubectl
       - chmod +x ./scripts_helm/setup.sh
+      - export KUBECONFIG="$(pwd)/kubernetes/kubeconfig.yaml"
       - set +e; make setup-helm; cf_export RC=$?
 
   # save_tfstate_helm:
