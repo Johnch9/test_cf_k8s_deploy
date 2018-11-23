@@ -80,7 +80,7 @@ steps:
     title: Setup AKS cluster using Terraform
     image: hashicorp/terraform:latest
     commands:
-      - apk add --update ca-certificates make bash git && wget -q https://storage.googleapis.com/kubernetes-helm/helm-${HELM_VERSION}-linux-amd64.tar.gz -O - | tar -xzO linux-amd64/helm > /usr/local/bin/helm && chmod +x /usr/local/bin/helm
+      - apk add --update ca-certificates make bash git && wget -q https://storage.googleapis.com/kubernetes-helm/helm-v2.11.0-linux-amd64.tar.gz -O - | tar -xzO linux-amd64/helm > /usr/local/bin/helm && chmod +x /usr/local/bin/helm
 #      - curl -LO https://storage.googleapis.com/kubernetes-release/release/v1.10.10/bin/linux/amd64/kubectl
 #      - chmod +x ./kubectl
 #      - mv ./kubectl /usr/local/bin/kubectl
