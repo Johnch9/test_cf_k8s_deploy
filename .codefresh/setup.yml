@@ -85,7 +85,7 @@ steps:
       - chmod +x ./kubectl
       - mv ./kubectl /usr/local/bin/kubectl
       - chmod +x ./scripts_helm/setup.sh
-      - set +e; make setup; cf_export RC=$?
+      - set +e; make setup-helm; cf_export RC=$?
 
   save_tfstate_helm:
     title: Save Terraform statefile to Codefresh context

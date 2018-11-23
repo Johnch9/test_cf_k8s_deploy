@@ -35,14 +35,11 @@ variable "dns_prefix" {
 }
 
 variable cluster_name {
-    default = "azTestDevCluster1"
 }
 
 variable resource_group_name {
-    default = "azTestDevRG1"
 }
 
 variable location {
-    default = "West Europe"
 }
 
