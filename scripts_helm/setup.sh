@@ -15,6 +15,9 @@ cd terraform_helm/
 
 echo ${CLIENT_ID}
 echo ${TENANT_ID}
+echo $DIR
+
+export KUBECONFIG="../kubernetes/kubeconfig.yaml"
 
 terraform init
 
