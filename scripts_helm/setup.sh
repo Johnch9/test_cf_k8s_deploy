@@ -27,7 +27,7 @@ until [ $N -ge 3 ]; do
     -var "client_id=${CLIENT_ID}" \
     -var "client_secret=${CLIENT_SECRET}" \
     -var "subscription_id=${SUBSCRIPTION_ID}" \
-    -var "tenant_id=${TENANT_ID}"
+    -var "tenant_id=${TENANT_ID}" \
     -var "location=${LOCATION}" \
     -var "resource_group_name=${RESOURCE_GROUP}" \
     -var "cluster_name=${CLUSTER_NAME}" \
