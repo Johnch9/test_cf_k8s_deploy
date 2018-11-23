@@ -27,7 +27,7 @@ provider "helm" {
     # cluster_ca_certificate = "${base64decode(var.certificate_authority_data)}"
 #    config_path = "${azurerm_kubernetes_cluster.k8s.kube_config_raw}"
 #    config_path = "./.kube/config"
-    config_path = "/app/~/.kube/config"
+    config_path = "var.kube_config_path"
   }
 }
 

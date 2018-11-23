@@ -18,6 +18,9 @@ variable resource_group_name {
 variable location {
 }
 
+variable kube_config_path {
+}
+
 variable api_nsg {
     default = "apiNSG"
 }

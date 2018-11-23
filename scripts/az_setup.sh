@@ -15,27 +15,29 @@ cd $DIR/../
 
 az login --service-principal -u "${CLIENT_ID}" -p "${CLIENT_SECRET}" --tenant "${TENANT_ID}"
 
-az group create --name "${RESOURCE_GROUP}" --location "${LOCATION}"
+# az group create --name "${RESOURCE_GROUP}" --location "${LOCATION}"
 
-# try 3 times in case we are stuck waiting for AKS cluster to come up
-set +e
-N=0
-SUCCESS="false"
-until [ $N -ge 3 ]; do
-  az aks create \
-    --resource-group "${RESOURCE_GROUP}" \
-    --name "${CLUSTER_NAME}" \
-    --node-count ${NODE_COUNT} \
-    --service-principal "${CLIENT_ID}" \
-    --client-secret "${CLIENT_SECRET}" \
-    --generate-ssh-keys
-  if [[ "$?" == "0" ]]; then
-    SUCCESS="true"
-    break
-  fi
-  N=$[$N+1]
-done
-set -e
+# # try 3 times in case we are stuck waiting for AKS cluster to come up
+# set +e
+# N=0
+# SUCCESS="false"
+# until [ $N -ge 3 ]; do
+#   az aks create \
+#     --resource-group "${RESOURCE_GROUP}" \
+#     --name "${CLUSTER_NAME}" \
+#     --node-count ${NODE_COUNT} \
+#     --service-principal "${CLIENT_ID}" \
+#     --client-secret "${CLIENT_SECRET}" \
+#     --generate-ssh-keys
+#   if [[ "$?" == "0" ]]; then
+#     SUCCESS="true"
+#     break
+#   fi
+#   N=$[$N+1]
+# done
+# set -e
+
+SUCCESS="true"
 
 ls .
 
