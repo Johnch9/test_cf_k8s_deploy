@@ -17,7 +17,7 @@ echo ${CLIENT_ID}
 echo ${TENANT_ID}
 echo $DIR
 
-export KUBECONFIG="$DIR../kubernetes/kubeconfig.yaml"
+export KUBECONFIG="$DIR/../kubernetes/kubeconfig.yaml"
 
 cat $KUBECONFIG
 
