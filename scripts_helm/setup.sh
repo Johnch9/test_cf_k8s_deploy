@@ -31,7 +31,7 @@ until [ $N -ge 3 ]; do
     -var "location=${LOCATION}" \
     -var "resource_group_name=${RESOURCE_GROUP}" \
     -var "cluster_name=${CLUSTER_NAME}" \
-    -var "kube_config_path=../kubernetes/kubeconfig.yaml"
+    -var "kube_config_path=../kubernetes/kubeconfig.yaml" \
     .
   if [[ "$?" == "0" ]]; then
     SUCCESS="true"
