@@ -16,12 +16,15 @@ cd terraform_helm/
 echo ${CLIENT_ID}
 echo ${TENANT_ID}
 echo $DIR
+echo $KUBECONFIG
 
 # export KUBECONFIG="$DIR/../kubernetes/kubeconfig.yaml"
 
 cat $KUBECONFIG
 
 terraform init
+
+export TF_LOG="DEBUG"
 
 # try 3 times in case we are stuck waiting for AKS cluster to come up
 set +e
