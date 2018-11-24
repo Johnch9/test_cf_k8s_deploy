@@ -93,33 +93,33 @@ resource "null_resource" "helm_init" {
 # }
 
 # Deploy SvcCat
-# resource "helm_release" "istio" {
-#   depends_on = ["kubernetes_cluster_role_binding.tiller", "kubernetes_cluster_role_binding.tiller", "null_resource.helm_init"] 
-#   name       = "istio"
-# #  repository = "${helm_repository.incubator.metadata.0.name}"
-#   repository = ".././"
-# #  repository = "./istio/install/kubernetes/helm/"
-#   chart      = "istio"
-#   namespace  = "istio-system"
+resource "helm_release" "istio" {
+  depends_on = ["kubernetes_cluster_role_binding.tiller", "kubernetes_cluster_role_binding.tiller", "null_resource.helm_init"] 
+  name       = "istio"
+#  repository = "${helm_repository.incubator.metadata.0.name}"
+  repository = ".././"
+#  repository = "./istio/install/kubernetes/helm/"
+  chart      = "istio"
+  namespace  = "istio-system"
 
-#   set {
-#     name  = "istio.sidecar-injector"
-#     value = true
-#   }
-# }
+  set {
+    name  = "istio.sidecar-injector"
+    value = true
+  }
+}
 
-# resource "null_resource" "enable_sidecar_injection" {
-#   depends_on = ["helm_release.istio"]
+resource "null_resource" "enable_sidecar_injection" {
+  depends_on = ["helm_release.istio"]
 
-#   provisioner "local-exec" {
-#     command = <<EOF
-# kubectl label namespace default istio-injection=enabled
-#     EOF
-#   }
-# }
+  provisioner "local-exec" {
+    command = <<EOF
+kubectl label namespace default istio-injection=enabled
+    EOF
+  }
+}
 
 resource "helm_repository" "confluent_kafka" {
-  # depends_on = ["null_resource.enable_sidecar_injection"] 
+  depends_on = ["null_resource.enable_sidecar_injection"] 
   name = "confluentinc"
   url  = "https://raw.githubusercontent.com/confluentinc/cp-helm-charts/master"
 }
