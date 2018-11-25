@@ -58,15 +58,15 @@ steps:
       - export SECRET_ID="$(kubectl -n kube-system get secret | grep admin-user | awk '{print $1}')"
       - cf_export K8S_TOKEN=$(kubectl -n kube-system get secret $SECRET_ID -o jsonpath='{.data.token}')
 
-  # add_cluster:
-  #   title: Add AKS cluster to Codefresh account
-  #   image: byrnedo/alpine-curl:0.1.5
-  #   commands:
-  #     - apk add --update make bash jq
-  #     - export K8S_CA="$(cat kubernetes/kubeca.txt)"
-  #     - export K8S_HOST="$(cat kubernetes/kubehost.txt)"
-  #     - chmod +x ./scripts/codefresh-add-cluster.sh
-  #     - make codefresh-add-cluster
+  add_cluster:
+    title: Add AKS cluster to Codefresh account
+    image: byrnedo/alpine-curl:0.1.5
+    commands:
+      - apk add --update make bash jq
+      - export K8S_CA="$(cat kubernetes/kubeca.txt)"
+      - export K8S_HOST="$(cat kubernetes/kubehost.txt)"
+      - chmod +x ./scripts/codefresh-add-cluster.sh
+      - make codefresh-add-cluster
 
   # load_tfstate_helm:
   #   title: Attempt to load Terraform statefile from Codefresh context
