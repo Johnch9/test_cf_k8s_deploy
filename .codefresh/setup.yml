@@ -58,15 +58,15 @@ steps:
       - export SECRET_ID="$(kubectl -n kube-system get secret | grep admin-user | awk '{print $1}')"
       - cf_export K8S_TOKEN=$(kubectl -n kube-system get secret $SECRET_ID -o jsonpath='{.data.token}')
 
-  # add_cluster:
-  #   title: Add AKS cluster to Codefresh account
-  #   image: byrnedo/alpine-curl:0.1.5
-  #   commands:
-  #     - apk add --update make bash jq
-  #     - export K8S_CA="$(cat kubernetes/kubeca.txt)"
-  #     - export K8S_HOST="$(cat kubernetes/kubehost.txt)"
-  #     - chmod +x ./scripts/codefresh-add-cluster.sh
-  #     - make codefresh-add-cluster
+  add_cluster:
+    title: Add AKS cluster to Codefresh account
+    image: byrnedo/alpine-curl:0.1.5
+    commands:
+      - apk add --update make bash jq
+      - export K8S_CA="$(cat kubernetes/kubeca.txt)"
+      - export K8S_HOST="$(cat kubernetes/kubehost.txt)"
+      - chmod +x ./scripts/codefresh-add-cluster.sh
+      - make codefresh-add-cluster
 
   # load_tfstate_helm:
   #   title: Attempt to load Terraform statefile from Codefresh context
@@ -80,7 +80,11 @@ steps:
     title: Setup AKS cluster using Terraform
     image: hashicorp/terraform:latest
     commands:
-      - apk add --update ca-certificates make bash git && wget -q https://storage.googleapis.com/kubernetes-helm/helm-v2.11.0-linux-amd64.tar.gz -O - | tar -xzO linux-amd64/helm > /usr/local/bin/helm && chmod +x /usr/local/bin/helm
+      - apk add --update ca-certificates make bash git
+      - wget -q https://storage.googleapis.com/kubernetes-helm/helm-v2.11.0-linux-amd64.tar.gz -O - | tar -xzO linux-amd64/helm > /usr/local/bin/helm
+      - chmod +x /usr/local/bin/helm
+      - wget -q https://storage.googleapis.com/kubernetes-release/release/v1.10.10/bin/linux/amd64/kubectl -O /usr/local/bin/kubectl
+      - chmod +x /usr/local/bin/kubectl
 #      - curl -LO https://storage.googleapis.com/kubernetes-release/release/v1.10.10/bin/linux/amd64/kubectl
 #      - chmod +x ./kubectl
 #      - mv ./kubectl /usr/local/bin/kubectl
