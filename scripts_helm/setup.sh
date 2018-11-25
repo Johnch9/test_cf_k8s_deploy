@@ -39,27 +39,21 @@ terraform init
 
 # export TF_LOG="DEBUG"
 
-# try 3 times in case we are stuck waiting for AKS cluster to come up
 set +e
-N=0
 SUCCESS="false"
-until [ $N -ge 3 ]; do
-  terraform apply -auto-approve \
-    -var "client_id=${CLIENT_ID}" \
-    -var "client_secret=${CLIENT_SECRET}" \
-    -var "subscription_id=${SUBSCRIPTION_ID}" \
-    -var "tenant_id=${TENANT_ID}" \
-    -var "location=${LOCATION}" \
-    -var "resource_group_name=${RESOURCE_GROUP}" \
-    -var "cluster_name=${CLUSTER_NAME}" \
-    -var "kube_config_path=${KUBECONFIG}" \
-    .
-  if [[ "$?" == "0" ]]; then
-    SUCCESS="true"
-    break
-  fi
-  N=$[$N+1]
-done
+terraform apply -auto-approve \
+  -var "client_id=${CLIENT_ID}" \
+  -var "client_secret=${CLIENT_SECRET}" \
+  -var "subscription_id=${SUBSCRIPTION_ID}" \
+  -var "tenant_id=${TENANT_ID}" \
+  -var "location=${LOCATION}" \
+  -var "resource_group_name=${RESOURCE_GROUP}" \
+  -var "cluster_name=${CLUSTER_NAME}" \
+  -var "kube_config_path=${KUBECONFIG}" \
+  .
+if [[ "$?" == "0" ]]; then
+  SUCCESS="true"
+fi
 set -e
 
 if [[ "$SUCCESS" != "true" ]]; then
