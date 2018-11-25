@@ -13,9 +13,9 @@ provider "helm" {
 #   tiller_image = "ibmcom/tiller"
   install_tiller  = false
   namespace       = "kube-system"
-#  service_account = "${kubernetes_service_account.tiller.metadata.0.name}"
+  service_account = "${kubernetes_service_account.tiller.metadata.0.name}"
   tiller_image    = "gcr.io/kubernetes-helm/tiller:v2.11.0"
-  service_account = "tiller"
+  # service_account = "tiller"
   # tiller_image    = "gcr.io/kubernetes-helm/tiller:v2.11.0"
   kubernetes {
     # host     = "${var.host}"
