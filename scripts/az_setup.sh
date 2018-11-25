@@ -17,6 +17,7 @@ az login --service-principal -u "${CLIENT_ID}" -p "${CLIENT_SECRET}" --tenant "$
 az group create --name "${RESOURCE_GROUP}" --location "${LOCATION}"
 
 SUCCESS="false"
+set +e
 az aks show \
     -n "${CLUSTER_NAME}" \
     -g "${RESOURCE_GROUP}"
@@ -24,6 +25,7 @@ if [[ "$?" == "0" ]]; then
     echo "Cluster already exist"
     SUCCESS="true"
 fi
+set -e
 
 if [[ "$SUCCESS" != "true" ]]; then
     echo "Cluster does not exist"
