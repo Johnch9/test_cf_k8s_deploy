@@ -48,7 +48,7 @@ steps:
     image: lachlanevenson/k8s-kubectl:v1.10.4
     commands:
       - export KUBECONFIG="$(pwd)/kubernetes/kubeconfig.yaml"
-      - export SECRET_ID="$(kubectl -n kube-system get secret | grep admin-user | awk '{print $1}')"
+      - export SECRET_ID="$(kubectl -n kube-system get secret | grep admin-user-token | awk '{print $1}')"
       - cf_export K8S_TOKEN=$(kubectl -n kube-system get secret $SECRET_ID -o jsonpath='{.data.token}')
 
   add_cluster:
