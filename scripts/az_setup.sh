@@ -50,6 +50,8 @@ if [[ "$SUCCESS" != "true" ]]; then
     exit 1
 fi
 
+rm -rf kubernetes/kubeconfig.yaml || true
+
 az aks get-credentials --resource-group "${RESOURCE_GROUP}" --name "${CLUSTER_NAME}" -f kubernetes/kubeconfig.yaml
 
 export KUBECONFIG=kubernetes/kubeconfig.yaml
