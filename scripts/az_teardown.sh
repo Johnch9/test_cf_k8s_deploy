@@ -10,4 +10,4 @@ cd $DIR/../
 
 az login --service-principal -u "${CLIENT_ID}" -p "${CLIENT_SECRET}" --tenant "${TENANT_ID}"
 
-az group delete -n "${RESOURCE_GROUP}"
+az group delete -n "${RESOURCE_GROUP}" -y
