@@ -1,5 +1,7 @@
 #!/bin/bash -e
 
+K8S_NAME="${AZ_RESOURCE_GROUP:-terraform-aks-demo}"
+
 CF_API_HOST="${CF_API_HOST:-https://g.codefresh.io}"
 
 DIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )"
