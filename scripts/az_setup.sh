@@ -29,6 +29,8 @@ set -e
 
 if [[ "$SUCCESS" != "true" ]]; then
     echo "Cluster does not exist"
+    rm -rf terraform_helm/terraform.tfstate || true
+    rm -rf terraform_helm/terraform.tfstate.backup || true
     set +e
     az aks create \
         --resource-group "${RESOURCE_GROUP}" \
