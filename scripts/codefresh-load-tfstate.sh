@@ -15,4 +15,4 @@ fi
 codefresh get context aks-install-${K8S_NAME} -o json | \
     jq -r '.spec.data.TFSTATE_BASE64' | \
     sed -e 's/^null$$//' | \
-    base64 $DECODE_FLAGS > terraform/terraform.tfstate
+    base64 $DECODE_FLAGS > terraform_helm/terraform.tfstate

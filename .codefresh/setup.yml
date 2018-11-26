@@ -8,22 +8,24 @@ steps:
       - echo 'Checking for K8S_NAME, AZ_CLIENT_ID, and AZ_CLIENT_SECRET...'
       - bash -c '[[ -z $K8S_NAME || -z $AZ_CLIENT_ID || -z $AZ_CLIENT_SECRET ]] && exit 1 || true'
 
+  load_tfstate:
+    title: Attempt to load Terraform statefile from Codefresh context
+    image: codefresh/cli:0.8.54
+    commands:
+      - apk add --update make bash
+      - chmod +x ./scripts/codefresh-load-tfstate.sh
+      - make codefresh-load-tfstate || echo "Skipping."
+
   az_setup_aks_cluster:
     title: Setup AKS cluster using AZ command line
     image: microsoft/azure-cli:latest
     commands:
-      - apk add --update make bash git && wget -q https://storage.googleapis.com/kubernetes-release/release/v1.10.10/bin/linux/amd64/kubectl -O /usr/local/bin/kubectl && chmod +x /usr/local/bin/kubectl
+      - apk add --update make bash git
+      - wget -q https://storage.googleapis.com/kubernetes-release/release/v1.10.10/bin/linux/amd64/kubectl -O /usr/local/bin/kubectl
+      - chmod +x /usr/local/bin/kubectl
       - chmod +x ./scripts/az_setup.sh
       - set +e; make az_setup; cf_export RC=$?
     
-  # load_tfstate:
-  #   title: Attempt to load Terraform statefile from Codefresh context
-  #   image: codefresh/cli:0.8.54
-  #   commands:
-  #     - apk add --update make bash
-  #     - chmod +x ./scripts/codefresh-load-tfstate.sh
-  #     - make codefresh-load-tfstate || echo "Skipping."
-
   # setup_aks_cluster:
   #   title: Setup AKS cluster using Terraform
   #   image: hashicorp/terraform:latest
@@ -31,15 +33,6 @@ steps:
   #     - apk add --update make bash
   #     - chmod +x ./scripts/setup.sh
   #     - set +e; make setup; cf_export RC=$?
-
-  # save_tfstate:
-  #   title: Save Terraform statefile to Codefresh context
-  #   image: codefresh/cli:0.8.54
-  #   commands:
-  #     - apk add --update make bash
-  #     - chmod +x ./scripts/codefresh-save-tfstate.sh
-  #     - make codefresh-save-tfstate
-  #     - exit ${{RC}}
 
   create_kubernetes_resources:
     title: Create additional Kubernetes resources
@@ -68,14 +61,6 @@ steps:
       - chmod +x ./scripts/codefresh-add-cluster.sh
       - make codefresh-add-cluster
 
-  # load_tfstate_helm:
-  #   title: Attempt to load Terraform statefile from Codefresh context
-  #   image: codefresh/cli:0.8.54
-  #   commands:
-  #     - apk add --update make bash
-  #     - chmod +x ./scripts_helm/codefresh-load-tfstate.sh
-  #     - make codefresh-load-tfstate-helm || echo "Skipping."
-
   install_helm_chart:
     title: Setup AKS cluster using Terraform
     image: hashicorp/terraform:latest
@@ -85,18 +70,15 @@ steps:
       - chmod +x /usr/local/bin/helm
       - wget -q https://storage.googleapis.com/kubernetes-release/release/v1.10.10/bin/linux/amd64/kubectl -O /usr/local/bin/kubectl
       - chmod +x /usr/local/bin/kubectl
-#      - curl -LO https://storage.googleapis.com/kubernetes-release/release/v1.10.10/bin/linux/amd64/kubectl
-#      - chmod +x ./kubectl
-#      - mv ./kubectl /usr/local/bin/kubectl
       - chmod +x ./scripts_helm/setup.sh
       - export KUBECONFIG="$(pwd)/kubernetes/kubeconfig.yaml"
       - set +e; make setup-helm; cf_export RC=$?
 
-  # save_tfstate_helm:
-  #   title: Save Terraform statefile to Codefresh context
-  #   image: codefresh/cli:0.8.54
-  #   commands:
-  #     - apk add --update make bash
-  #     - chmod +x ./scripts_helm/codefresh-save-tfstate.sh
-  #     - make codefresh-save-tfstate-helm
-  #     - exit ${{RC}}
+  save_tfstate:
+    title: Save Terraform statefile to Codefresh context
+    image: codefresh/cli:0.8.54
+    commands:
+      - apk add --update make bash
+      - chmod +x ./scripts/codefresh-save-tfstate.sh
+      - make codefresh-save-tfstate
+      - exit ${{RC}}

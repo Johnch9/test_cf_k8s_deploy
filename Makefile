@@ -10,6 +10,10 @@ az_setup:
 teardown:
 	@./scripts/teardown.sh
 
+.PHONY: az_teardown
+az_teardown:
+	@./scripts/az_teardown.sh
+
 .PHONY: codefresh-save-tfstate
 codefresh-save-tfstate:
 	@./scripts/codefresh-save-tfstate.sh
