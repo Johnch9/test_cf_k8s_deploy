@@ -14,7 +14,7 @@ steps:
     commands:
       - apk add --update make bash
       - chmod +x ./scripts/codefresh-load-tfstate.sh
-      - make codefresh-load-tfstate
+      - make codefresh-load-tfstate || echo "Skipping."
 
   az_teardown_aks_cluster:
     title: Teardown AKS cluster using Azure CLI
