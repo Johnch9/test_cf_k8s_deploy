@@ -30,6 +30,10 @@ codefresh-remove-tfstate:
 codefresh-add-cluster:
 	@./scripts/codefresh-add-cluster.sh
 
+.PHONY: codefresh-remove-cluster
+codefresh-remove-cluster:
+	@./scripts/codefresh-remove-cluster.sh
+
 .PHONY: setup-helm
 setup-helm:
 	@./scripts_helm/setup.sh
