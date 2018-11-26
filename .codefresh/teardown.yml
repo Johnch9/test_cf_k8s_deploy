@@ -13,6 +13,7 @@ steps:
     image: codefresh/cli:0.8.54
     commands:
       - apk add --update make bash
+      - chmod +x ./scripts/codefresh-load-tfstate.sh
       - make codefresh-load-tfstate
 
   az_teardown_aks_cluster:
@@ -36,12 +37,15 @@ steps:
     image: codefresh/cli:0.8.54
     commands:
       - apk add --update make bash
+      - chmod +x ./scripts/codefresh-save-tfstate.sh
+      - chmod +x ./scripts/codefresh-remove-tfstate.sh
       - bash -c '[[ "${{RC}}" != "0" ]] && make codefresh-save-tfstate || make codefresh-remove-tfstate'
       - exit ${{RC}}
 
   remove_cluster:
-    title: Remove EKS cluster from Codefresh account
+    title: Remove AKS cluster from Codefresh account
     image: byrnedo/alpine-curl:0.1.5
     commands:
       - apk add --update make bash jq
+      - chmod +x ./scripts/codefresh-remove-cluster.sh
       - make codefresh-remove-cluster
